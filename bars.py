@@ -19,8 +19,6 @@ def get_biggest_bar(data):
         if max_value < current_bar['Cells']['SeatsCount']:
             max_value = current_bar['Cells']['SeatsCount']
             max_value_index = i
-    print('*****', data[max_value_index]['Cells']['global_id'])
-    print('*****', data[max_value_index]['Cells']['Name'])
     return data[max_value_index]
 
 
@@ -64,30 +62,41 @@ if __name__ == '__main__':
     if options['path']:
         path = options['path']
     else:
-        print(u'Необходимо указать путь до файла с барами в json')
+        print('Необходимо указать путь до файла с барами в json')
         exit(-1)
 
     bars_db = load_data(path)
 
     if options['smallest']:
         bar = get_smallest_bar(bars_db)
-        print(u'Самый маленький бар: {}'.format(bar['Cells']['Name']))
-        print(u'Адрес: {}'.format(bar['Cells']['Address']))
-        print(u'Размер: {} мест'.format(bar['Cells']['SeatsCount']))
+        print('Самый маленький бар: {}'.format(bar['Cells']['Name']))
+        print('Адрес: {}'.format(bar['Cells']['Address']))
+        print('Размер: {} мест'.format(bar['Cells']['SeatsCount']))
 
     if options['biggest']:
-        bar = get_biggest_bar(bars_db)
-        # print('Самый большой бар: {}'.format(bar['Cells']['Name']))
-        # print('Адрес: {}'.format(bar['Cells']['Address']))
-        # print('Размер: {} мест'.format(bar['Cells']['SeatsCount']))
-
-    if options['closest']:
-        print(arguments)
-        exit(1)
         bar = get_biggest_bar(bars_db)
         print('Самый большой бар: {}'.format(bar['Cells']['Name']))
         print('Адрес: {}'.format(bar['Cells']['Address']))
         print('Размер: {} мест'.format(bar['Cells']['SeatsCount']))
 
-    # closest = get_closest_bar(bars, 55.889165, 37.707438)
+    if options['closest']:
+        if not arguments:
+            print('Необходимо указать Долготу и Широту через пробел')
+            exit(-1)
+        if len(arguments) != 2:
+            print('Должно быть только два аргумента: Долгота и Широта')
+            exit(-1)
+
+        try:
+            longitude = float(arguments[0])
+            latitude = float(arguments[1])
+        except ValueError:
+            print('Широта и долгота должны быть в float')
+            exit(-1)
+
+        bar = get_closest_bar(bars_db, longitude, latitude)
+        print('Самый близкий бар: {}'.format(bar['Cells']['Name']))
+        print('Адрес: {}'.format(bar['Cells']['Address']))
+        print('Размер: {} мест'.format(bar['Cells']['SeatsCount']))
+
 
