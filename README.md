@@ -10,11 +10,12 @@
 Файл можно взять здесь: http://data.mos.ru/opendata/7710881420-bary
 
 ## Как это делает?
-*Божественно, конечно же*
-Юзадж: `python bars.py (-s|-b|-c longitude latitude)`
- `-s (--smallest)` для поиска самого маленького бара
- `-b (--biggest)` для поиска самого большого бара
- `-c (--closest longtitude latitude)` для поиска самого ближайшего бара относительно долготы и широты
+>*Божественно, конечно же*
+Юзадж: `python bars.py -p path_to_bars.json (-s|-b|-c longitude latitude)`.
+ `-p (--path)` путь к json-файлу;
+ `-s (--smallest)` для поиска самого маленького бара;
+ `-b (--biggest)` для поиска самого большого бара;
+ `-c (--closest longtitude latitude)` для поиска самого ближайшего бара относительно долготы и широты.
 
 
 ## Примерчики:
